@@ -28,6 +28,7 @@ class NumberBaseballGame {
 
     /**
      * 숫자 야구 게임에 사용중인 볼 카운트를 초기화합니다.
+     *
      */
     private fun resetGameCount() {
         this.strike = 0
@@ -35,7 +36,7 @@ class NumberBaseballGame {
     }
 
     /**
-     * 현재 게임 상태에 맞는 NumberBaseballGameStatus를 반환합니다.
+     * 정답과 비교해 현재 게임 상태에 맞는 NumberBaseballGameStatus를 반환합니다.
      *
      * @return NumberBaseballGameStatus
      */

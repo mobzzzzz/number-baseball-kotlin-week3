@@ -41,7 +41,7 @@ class NumberBaseballGame {
      */
     private fun validateAnswer(): NumberBaseballGameStatus {
         return when {
-            this.strike == this.answer.length -> NumberBaseballGameStatus.Complete
+            this.strike == this.answer.length -> NumberBaseballGameStatus.Correct
             this.strike > 0 || this.ball > 0 -> NumberBaseballGameStatus.Progress
             else -> NumberBaseballGameStatus.Nothing
         }

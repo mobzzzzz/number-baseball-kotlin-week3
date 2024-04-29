@@ -6,7 +6,7 @@ fun main() {
 
     while (true) {
         println("숫자를 입력하세요")
-        var input = readln()
+        val input = readln()
         if (input == "3") break
 
         with(numberBaseballGame) {
@@ -16,7 +16,7 @@ fun main() {
                 status = checkInput(input)
 
                 when (status) {
-                    NumberBaseballGameStatus.Complete -> {
+                    NumberBaseballGameStatus.Correct -> {
                         println("정답입니다!")
                         println("정답 리셋중...")
                         resetGame()

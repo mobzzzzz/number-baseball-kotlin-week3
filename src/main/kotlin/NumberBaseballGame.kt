@@ -54,11 +54,18 @@ class NumberBaseballGame {
      * @return NumberBaseballGameStatus: Nothing, Progress, Correct 세 가지 상태중 하나입니다.
      */
     fun checkInput(input: String): NumberBaseballGameStatus {
+        val inputCharList = Regex("""\d""").findAll(input).map { it.value.single() }.toList()
+        val answerLength = this.answer.length
+
+        if (inputCharList.count() != answerLength) { throw Exception("입력값이 올바르지 않습니다.") }
+        if (inputCharList.first() == '0') { throw Exception("첫 번째 숫자는 0이 될 수 없습니다.") }
+        if (inputCharList.distinct().count() < answerLength) { throw Exception("중복 값이 있습니다.") }
+
         this.resetGameCount()
 
-        (0 until this.answer.length).forEach { index ->
-            if (this.answer[index] == input[index]) { this.strike++ }
-            else if (this.answer.contains(input[index])) { this.ball++ }
+        (0 until answerLength).forEach { index ->
+            if (this.answer[index] == inputCharList[index]) { this.strike++ }
+            else if (this.answer.contains(inputCharList[index])) { this.ball++ }
         }
 
         return this.validateAnswer()

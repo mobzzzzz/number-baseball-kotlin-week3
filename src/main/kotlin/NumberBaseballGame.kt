@@ -4,11 +4,12 @@ class NumberBaseballGame {
     private var answer = ""
     private var strike: Int = 0
     private var ball: Int = 0
-    private var difficulty: NumberBaseballDifficulty = NumberBaseballDifficulty.Normal
 
-    init {
-        this.resetGame()
-    }
+    var difficulty: NumberBaseballDifficulty = NumberBaseballDifficulty.Normal
+        set(value) {
+            field = value
+            this.resetGame()
+        }
 
     /**
      * 현재 게임 상태를 초기화합니다.

@@ -4,6 +4,7 @@ class NumberBaseballGame {
     private var answer = ""
     private var strike: Int = 0
     private var ball: Int = 0
+    private var difficulty: NumberBaseballDifficulty = NumberBaseballDifficulty.Normal
 
     init {
         this.resetGame()

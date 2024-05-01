@@ -27,12 +27,9 @@ class NumberBaseballGame {
     private fun resetAnswer() {
         this.answer = ""
 
-        while (this.answer.length < this.difficulty.length) {
-            // 첫번째 값은 0을 범위로 쓰지 않음
-            val randomNumber = ((if (this.answer.isEmpty()) 1 else 0)..9).random().toString().single()
-
-            if (!this.answer.contains(randomNumber)) this.answer += randomNumber
-        }
+        do {
+            this.answer = (0..9).toList().shuffled().slice(0 until this.difficulty.length).joinToString("")
+        } while (this.answer.first() == '0')
     }
 
     /**

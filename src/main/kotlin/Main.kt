@@ -5,6 +5,10 @@ fun main() {
     showMenu()
 }
 
+/**
+ * 게임 기본 메뉴 출력
+ *
+ */
 fun showMenu() {
     do {
         println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
@@ -19,10 +23,19 @@ fun showMenu() {
     } while (menuInput != "3")
 }
 
+/**
+ * 게임 기록 출력 (파일입출력 이용해 저장, 불러오기)
+ *
+ */
 fun showGameRecord() {
 
 }
 
+/**
+ * 현재 진행중인 게임의 난이도 설정 바꾸기
+ *
+ * @param game: 현재 진행중인 게임 인스턴스
+ */
 fun setGameDifficulty(game: NumberBaseballGame) {
     while (true) {
         println("게임 난이도를 선택해주세요.")
@@ -43,6 +56,10 @@ fun setGameDifficulty(game: NumberBaseballGame) {
     }
 }
 
+/**
+ * 게임 인스턴스를 만들고 진행
+ *
+ */
 fun startGame() {
     val game = NumberBaseballGame()
 

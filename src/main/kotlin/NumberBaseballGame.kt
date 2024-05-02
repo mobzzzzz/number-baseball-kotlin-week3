@@ -1,9 +1,10 @@
 package org.example
 
 class NumberBaseballGame {
+    // 직접적인 set 방지
     private var answer = ""
-    private var strike: Int = 0
-    private var ball: Int = 0
+    private var numberBaseballCount = NumberBaseballCount(0, 0)
+    private var inputCount: Int = 0
 
     var difficulty: NumberBaseballDifficulty = NumberBaseballDifficulty.Normal
         set(value) {
@@ -17,7 +18,7 @@ class NumberBaseballGame {
      */
     fun resetGame() {
         this.resetAnswer()
-        this.resetGameCount()
+        this.resetGameCount(true)
     }
 
     /**
@@ -33,12 +34,13 @@ class NumberBaseballGame {
     }
 
     /**
-     * 숫자 야구 게임에 사용중인 볼 카운트를 초기화합니다.
+     * 숫자 야구 게임에 사용중인 카운팅 변수를 초기화합니다.
      *
      */
-    private fun resetGameCount() {
-        this.strike = 0
-        this.ball = 0
+    private fun resetGameCount(withInput: Boolean = false) {
+        this.numberBaseballCount.strike = 0
+        this.numberBaseballCount.ball = 0
+        if (withInput) this.inputCount = 0
     }
 
     /**
@@ -48,8 +50,8 @@ class NumberBaseballGame {
      */
     private fun validateAnswer(): NumberBaseballGameStatus {
         return when {
-            this.strike == this.answer.length -> NumberBaseballGameStatus.Correct
-            this.strike > 0 || this.ball > 0 -> NumberBaseballGameStatus.Progress
+            this.numberBaseballCount.strike == this.answer.length -> NumberBaseballGameStatus.Correct
+            this.numberBaseballCount.strike > 0 || this.numberBaseballCount.ball > 0 -> NumberBaseballGameStatus.Progress
             else -> NumberBaseballGameStatus.Nothing
         }
     }
@@ -69,21 +71,36 @@ class NumberBaseballGame {
         if (inputCharList.distinct().count() < answerLength) { throw Exception("중복 값이 있습니다.") }
 
         this.resetGameCount()
+        this.increaseInputCount()
 
         (0 until answerLength).forEach { index ->
-            if (this.answer[index] == inputCharList[index]) { this.strike++ }
-            else if (this.answer.contains(inputCharList[index])) { this.ball++ }
+            if (this.answer[index] == inputCharList[index]) { this.numberBaseballCount.strike++ }
+            else if (this.answer.contains(inputCharList[index])) { this.numberBaseballCount.ball++ }
         }
 
         return this.validateAnswer()
     }
 
     /**
-     * 현재 스트라이크, 볼 카운트를 NumberBaseballCount로 묶어 completion으로 전달합니다.
+     * Input count를 1만큼 증가시킵니다.
+     *
+     */
+    private fun increaseInputCount() {
+        this.inputCount += 1
+    }
+
+    /**
+     * 현재 스트라이크, 볼 카운트를 담고 있는 NumberBaseballCount 객체를 completion으로 전달합니다.
      *
      * @param completion: Strike, Ball 정보를 가진 NumberBaseballCount를 전달합니다
      */
-    fun getCurrentGameCount(completion: (NumberBaseballCount) -> Unit) {
-        completion(NumberBaseballCount(this.strike, this.ball))
+    fun getCurrentGameBallCount(completion: (NumberBaseballCount) -> Unit) {
+        completion(this.numberBaseballCount)
     }
+
+    /**
+     * 현재 게임 기록을 반환합니다.
+     *
+     */
+    fun getGameRecord() = NumberBaseballGameRecord(this.difficulty, this.inputCount)
 }

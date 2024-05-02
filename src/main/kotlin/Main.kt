@@ -79,6 +79,10 @@ fun startGame() {
 
             try {
                 status = checkInput(input)
+            } catch (e: Exception) {
+                println(e.message)
+                return@with
+            }
 
                 when (status) {
                     NumberBaseballGameStatus.Correct -> {
@@ -87,13 +91,13 @@ fun startGame() {
                         resetGame()
                     }
 
-                    NumberBaseballGameStatus.Progress -> {
-                        getCurrentGameCount {
-                            if (it.strike != 0) print("${it.strike}스트라이크 ")
-                            if (it.ball != 0) print("${it.ball}볼 ")
-                            println()
-                        }
+                NumberBaseballGameStatus.Progress -> {
+                    getCurrentGameBallCount {
+                        if (it.strike != 0) print("${it.strike}스트라이크 ")
+                        if (it.ball != 0) print("${it.ball}볼 ")
+                        println()
                     }
+                }
 
                     NumberBaseballGameStatus.Nothing -> {
                         println("Nothing")
@@ -101,6 +105,9 @@ fun startGame() {
                 }
             } catch (e: Exception) {
                 println(e.message)
+                NumberBaseballGameStatus.Nothing -> {
+                    println("Nothing")
+                }
             }
         }
     }

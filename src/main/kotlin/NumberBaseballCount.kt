@@ -1,3 +1,3 @@
 package org.example
 
-data class NumberBaseballCount(val strike: Int, val ball: Int)
+data class NumberBaseballCount(var strike: Int, var ball: Int)

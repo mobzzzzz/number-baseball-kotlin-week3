@@ -1,5 +1,7 @@
 package org.example
 
+private val baseballIOUtils = NumberBaseballIOUtils.getInstance()
+
 fun main() {
     println("< 게임을 시작합니다 >")
     showMenu()
@@ -16,7 +18,7 @@ fun showMenu() {
 
         when (menuInput) {
             "1" -> startGame()
-            "2" -> showGameRecord()
+            "2" -> showGameRecordMenu()
             "3" -> println("게임을 종료합니다.")
             else -> println("잘못 입력하셨습니다.")
         }
@@ -27,8 +29,89 @@ fun showMenu() {
  * 게임 기록 출력 (파일입출력 이용해 저장, 불러오기)
  *
  */
-fun showGameRecord() {
+fun showGameRecordMenu() {
+    val gameRecords: List<String>
+    try {
+        gameRecords = baseballIOUtils.getGameRecords()
+    } catch (e: Exception) {
+        println(e.message)
+        return
+    }
 
+    do {
+        println("1. 전체 기록 보기 2. 랭킹으로 보기 3. 돌아가기")
+        val menuInput = readln()
+
+        when (menuInput) {
+            "1" -> showGameRecordAll(gameRecords)
+            "2" -> showGameRecordRankingMenu(gameRecords)
+            "3" -> println("이전 메뉴로 돌아갑니다.")
+            else -> println("잘못 입력하셨습니다.")
+        }
+    } while (menuInput != "3")
+}
+
+/**
+ * 난이도별로 랭킹 조회를 할 수 있게 선택 메뉴를 출력한다.
+ *
+ * @param 게임 기록 raw가 담긴 list
+ */
+fun showGameRecordRankingMenu(records: List<String>) {
+    val entries = NumberBaseballDifficulty.entries
+    val size = entries.size
+    do {
+        entries.forEachIndexed { index, difficulty ->
+            print("${index + 1}. ${difficulty.name} ")
+        }
+
+        println("${size + 1}. 돌아가기")
+
+        val menuInput = readln().toInt()
+
+        try {
+            when (menuInput) {
+                in 1..size -> showRecordByRanking(records, entries[menuInput - 1])
+                size + 1 -> println("이전 메뉴로 돌아갑니다.")
+                else -> println("잘못 입력하셨습니다.")
+            }
+        } catch (e: Exception) {
+            println(e.message)
+        }
+    } while (menuInput != size + 1)
+}
+
+/**
+ * 모든 게임 기록을 기록된 순서로 출력한다.
+ *
+ * @param 게임 기록 raw가 담긴 list
+ */
+fun showGameRecordAll(records: List<String>) {
+    splitRecords(records).forEach { println("${it.first} 난이도를 ${it.second}회만에 풀었습니다.") }
+}
+
+/**
+ * 게임 기록을 선택한 랭킹 순으로 정렬해서 출력한다.
+ *
+ * @param 게임 기록 raw가 담긴 list
+ * @param 게임 난이도
+ */
+fun showRecordByRanking(records: List<String>, difficulty: NumberBaseballDifficulty) {
+    val filteredRecords = splitRecords(records).filter { it.first == difficulty.name }
+    if (filteredRecords.isEmpty()) throw Exception("게임 기록이 없습니다.")
+
+    filteredRecords.sortedBy { it.second }.forEachIndexed { index, data ->
+            println("${index + 1}등: ${data.second}회")
+        }
+}
+
+/**
+ * 읽어온 게임 기록을 난이도, 횟수로 묶어 반환한다.
+ *
+ * @param 게임 기록 raw가 담긴 list
+ * @return 난이도, 횟수를 묶은 Pair
+ */
+fun splitRecords(records: List<String>): List<Pair<String, Int>> {
+    return records.map { it.split(":").let { data -> Pair(data[0], data[1].toInt()) } }
 }
 
 /**
@@ -84,12 +167,18 @@ fun startGame() {
                 return@with
             }
 
-                when (status) {
-                    NumberBaseballGameStatus.Correct -> {
-                        println("정답입니다!")
-                        println("정답 리셋중...")
-                        resetGame()
+            when (status) {
+                NumberBaseballGameStatus.Correct -> {
+                    try {
+                        baseballIOUtils.addGameRecord(game.getGameRecord())
+                    } catch (e: Exception) {
+                        println("게임 기록에 실패했습니다. :" + e.message)
                     }
+
+                    println("정답입니다!")
+                    println("정답 리셋중...")
+                    resetGame()
+                }
 
                 NumberBaseballGameStatus.Progress -> {
                     getCurrentGameBallCount {
@@ -99,12 +188,6 @@ fun startGame() {
                     }
                 }
 
-                    NumberBaseballGameStatus.Nothing -> {
-                        println("Nothing")
-                    }
-                }
-            } catch (e: Exception) {
-                println(e.message)
                 NumberBaseballGameStatus.Nothing -> {
                     println("Nothing")
                 }

@@ -7,7 +7,6 @@ import org.example.utils.GameRecordIOUtils
 private val baseballIOUtils = GameRecordIOUtils.getInstance()
 
 fun main() {
-    println("< 게임을 시작합니다 >")
     showMenu()
 }
 
@@ -16,6 +15,8 @@ fun main() {
  *
  */
 fun showMenu() {
+    println("< 게임을 시작합니다 >")
+
     do {
         println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
         val menuInput = readln()

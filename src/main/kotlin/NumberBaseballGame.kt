@@ -5,9 +5,9 @@ import org.example.model.NumberBaseballDifficulty
 import org.example.model.NumberBaseballGameRecord
 import org.example.model.NumberBaseballGameStatus
 
-class NumberBaseballGame {
+// 테스트 코드 작성용 answer 생성자
+class NumberBaseballGame(private var answer: String = "") {
     // 직접적인 set 방지
-    private var answer = ""
     private var numberBaseballCount = NumberBaseballCount(0, 0)
     private var inputCount: Int = 0
 

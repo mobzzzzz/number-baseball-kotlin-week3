@@ -1,5 +1,10 @@
 package org.example
 
+import org.example.model.NumberBaseballCount
+import org.example.model.NumberBaseballDifficulty
+import org.example.model.NumberBaseballGameRecord
+import org.example.model.NumberBaseballGameStatus
+
 class NumberBaseballGame {
     // 직접적인 set 방지
     private var answer = ""

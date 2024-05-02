@@ -1,6 +1,10 @@
 package org.example
 
-private val baseballIOUtils = NumberBaseballIOUtils.getInstance()
+import org.example.model.NumberBaseballDifficulty
+import org.example.model.NumberBaseballGameStatus
+import org.example.utils.GameRecordIOUtils
+
+private val baseballIOUtils = GameRecordIOUtils.getInstance()
 
 fun main() {
     println("< 게임을 시작합니다 >")

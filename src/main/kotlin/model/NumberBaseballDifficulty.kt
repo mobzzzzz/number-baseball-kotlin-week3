@@ -1,4 +1,4 @@
-package org.example
+package org.example.model
 
 enum class NumberBaseballDifficulty(var length: Int) {
     Normal(3),

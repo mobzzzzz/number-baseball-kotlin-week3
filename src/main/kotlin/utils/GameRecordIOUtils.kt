@@ -1,8 +1,9 @@
-package org.example
+package org.example.utils
 
+import org.example.model.NumberBaseballGameRecord
 import java.io.File
 
-class NumberBaseballIOUtils private constructor() {
+class GameRecordIOUtils private constructor() {
     private val file = File(Constants.RECORD_FILE_PATH)
 
     /**
@@ -26,12 +27,12 @@ class NumberBaseballIOUtils private constructor() {
     }
 
     companion object {
-        private var instance: NumberBaseballIOUtils? = null
+        private var instance: GameRecordIOUtils? = null
 
         /**
          * 유틸리티는 Singleton instance로 관리
          *
          */
-        fun getInstance(): NumberBaseballIOUtils = this.instance ?: NumberBaseballIOUtils()
+        fun getInstance(): GameRecordIOUtils = instance ?: GameRecordIOUtils()
     }
 }

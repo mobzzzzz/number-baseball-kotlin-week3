@@ -8,7 +8,7 @@ fun main() {
 }
 
 /**
- * 게임 기본 메뉴 출력
+ * 게임 기본 메뉴를 출력한다.
  *
  */
 fun showMenu() {
@@ -26,7 +26,7 @@ fun showMenu() {
 }
 
 /**
- * 게임 기록 출력 (파일입출력 이용해 저장, 불러오기)
+ * 게임 기록 조회 메뉴를 출력한다.
  *
  */
 fun showGameRecordMenu() {
@@ -115,7 +115,7 @@ fun splitRecords(records: List<String>): List<Pair<String, Int>> {
 }
 
 /**
- * 현재 진행중인 게임의 난이도 설정 바꾸기
+ * 현재 진행중인 게임의 난이도 설정을 바꾼다.
  *
  * @param game: 현재 진행중인 게임 인스턴스
  */
@@ -140,7 +140,7 @@ fun setGameDifficulty(game: NumberBaseballGame) {
 }
 
 /**
- * 게임 인스턴스를 만들고 진행
+ * 게임 인스턴스를 만들고 게임을 진행한다.
  *
  */
 fun startGame() {

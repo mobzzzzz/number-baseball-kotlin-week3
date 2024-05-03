@@ -246,7 +246,7 @@ private fun resetGameCount(withInput: Boolean = false) {
     }
 ```
 
-<h2>Controller가 게임의 정보를 필요로 할 때:<h2/>
+<h2>Controller가 게임의 정보를 필요로 할 때:</h2>
 
 ```kotlin
     /**
@@ -317,7 +317,7 @@ getCurrentGameBallCount {
 
 <details><summary>코드 보기</summary>
 
-[GameRecordIOUtils](src/main/kotlin/utils/GameRecordIOUtils.kt)
+[GameRecordIOUtils.Kt로 이동](src/main/kotlin/utils/GameRecordIOUtils.kt)
 ```kotlin
 class GameRecordIOUtils private constructor() {
     private val file = File(Constants.RECORD_FILE_PATH)
@@ -364,7 +364,7 @@ class GameRecordIOUtils private constructor() {
 
 <details><summary>코드 보기</summary>
 
-[NumberBaseballTest.kt](src/test/kotlin/NumberBaseballTest.kt)
+[NumberBaseballTest.kt로 이동](src/test/kotlin/NumberBaseballTest.kt)
 ```kotlin
 class NumberBaseballTest : BehaviorSpec({
 

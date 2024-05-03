@@ -11,6 +11,7 @@ class NumberBaseballGame(private var answer: String = "") {
     private var numberBaseballCount = NumberBaseballCount(0, 0)
     private var inputCount: Int = 0
 
+    // 난이도 설정이 진행되면 게임 시작으로 간주하는 Setter 설정
     var difficulty: NumberBaseballDifficulty = NumberBaseballDifficulty.Normal
         set(value) {
             field = value
